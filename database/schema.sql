@@ -29,7 +29,7 @@ USE estacionamiento_db;
        * Respaldos lógicos previos (mysqldump / mariadb-dump).
        * Ventanas de mantenimiento planificadas para validar dependencias y evitar locks prolongados.
 
-  2. AMBIENTES DE DESARROLLO / PRUEBAS LOCALES (CI/CD):
+  2. AMBIENTES DE DESARROLLO O QA:
      - El reinicio total de tablas solo es admisible para recreación desde cero (scratch build)
        en contenedores de pruebas unitarias o ambientes locales aislados.
 */
@@ -67,6 +67,8 @@ CREATE TABLE tipo_vehiculo (
 -- =============================================================================
 CREATE TABLE residente (
     id_residente INT AUTO_INCREMENT PRIMARY KEY,
+	apellido_p VARCHAR(120) NOT NULL,
+	apellido_m VARCHAR(120),
     nombre VARCHAR(120) NOT NULL,
     numero_departamento VARCHAR(30) NOT NULL,
     telefono VARCHAR(20) NULL,
@@ -129,7 +131,6 @@ CREATE TABLE estancia (
     
     -- Columna virtual única para asegurar máximo 1 estancia abierta por vehículo:
     -- Si fecha_salida IS NULL devuelve 'PLACA-ACTIVA'; si ya cerró devuelve NULL.
-    -- Como NULL no colisiona en índices UNIQUE, múltiples estancias cerradas son válidas.
     estancia_activa_uk VARCHAR(40) GENERATED ALWAYS AS (
         IF(fecha_salida IS NULL, CONCAT(placa, '-ACTIVA'), NULL)
     ) VIRTUAL,
