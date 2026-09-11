@@ -6,8 +6,10 @@
 ![Arbol de tablas](img/arbol_tablas.png)
 
 * **Consulta de tablas:**
-![Arbol de tablas](img/arbol_tablas.png)
+![Consulta al diccionario de datos](img/tablas.png)
+
 * **Detalle de tablas y conteo de registros:**
+![Conteo tablas principales](img/contenido_tablas.png)
 
 ### Ejecución de Consultas SQL y Datos
 * **Consulta 1 — Vehículos actualmente dentro del estacionamiento:**
