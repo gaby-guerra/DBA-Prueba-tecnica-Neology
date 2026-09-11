@@ -13,28 +13,37 @@ erDiagram
     RESIDENTE ||--o{ CIERRE_MENSUAL : liquida
     CIERRE_MENSUAL ||--o{ DETALLE_CIERRE_RESIDENTE : contiene
     ESTANCIA ||--o| DETALLE_CIERRE_RESIDENTE : agrupa
+    CIERRE_MENSUAL ||--o| CARGO_PAGO : liquida
 
     TIPO_VEHICULO {
         int id_tipo_vehiculo PK
         varchar codigo UK
         varchar descripcion
         tinyint requiere_pago
+        tinyint activo
+        datetime fecha_creacion
     }
 
     RESIDENTE {
         int id_residente PK
+        varchar apellido_p
+        varchar apellido_m
         varchar nombre
         varchar numero_departamento
         varchar telefono
+        varchar correo
         tinyint activo
+        datetime fecha_alta
     }
 
     VEHICULO {
         varchar placa PK
         int id_tipo_vehiculo FK
-        int id_residente FK
+        int id_residente FK "Nullable"
         varchar marca
         varchar modelo
+        varchar color
+        tinyint activo
         datetime fecha_registro
     }
 
@@ -43,7 +52,7 @@ erDiagram
         int id_tipo_vehiculo FK
         decimal costo_por_minuto
         datetime fecha_inicio
-        datetime fecha_fin
+        datetime fecha_fin "Nullable"
         tinyint activo
     }
 
@@ -52,47 +61,50 @@ erDiagram
         varchar placa FK
         int id_tarifa FK
         datetime fecha_entrada
-        datetime fecha_salida
+        datetime fecha_salida "Nullable"
         int minutos_totales
-        varchar estado
-        varchar estancia_activa_uk UK
+        enum estado
+        varchar estancia_activa_uk UK "Virtual"
     }
 
     CARGO_PAGO {
         bigint id_pago PK
-        bigint id_estancia FK
-        int id_cierre FK
+        enum tipo_cargo
+        bigint id_estancia FK "Nullable"
+        int id_cierre FK "Nullable"
         decimal monto
+        enum metodo_pago
+        varchar referencia
         datetime fecha_pago
-        varchar metodo_pago
     }
 
     CIERRE_MENSUAL {
         int id_cierre PK
         int id_residente FK
-        int anio
-        int mes
-        int total_minutos
-        decimal total_monto
-        varchar estado
+        smallint anio
+        tinyint mes
+        int minutos_acumulados
+        decimal monto_total
+        enum estado
         datetime fecha_cierre
     }
 
     DETALLE_CIERRE_RESIDENTE {
         bigint id_detalle PK
         int id_cierre FK
-        bigint id_estancia FK
+        bigint id_estancia FK "UK"
         int minutos_facturados
+        decimal costo_minuto_aplicado
         decimal monto_facturado
     }
 
     AUDITORIA_LOG {
         bigint id_auditoria PK
         varchar tabla_afectada
-        varchar operacion
+        enum operacion
         varchar id_registro
-        json datos_previos
-        json datos_nuevos
+        longtext datos_previos
+        longtext datos_nuevos
         varchar usuario_bd
         datetime fecha_evento
     }
