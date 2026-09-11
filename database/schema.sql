@@ -2,8 +2,8 @@
 -- PROYECTO: Sistema de Control de Acceso y Estacionamiento (Neology)
 -- ARCHIVO: database/schema.sql
 -- MOTOR: MariaDB 12.3
--- Fecha: 10-09-2026
--- Descripción: Estructura de la base de datos
+-- FECHA: 10-09-2026
+-- DESCRIPCIÓN: Estructura de la base de datos
 -- =============================================================================
 
 -- 1. Creación de la base de datos

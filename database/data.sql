@@ -1,6 +1,8 @@
 -- =============================================================================
 -- PROYECTO: Sistema de Gestión de Acceso y Estacionamiento (Neology)
 -- ARCHIVO: database/data.sql
+-- MOTOR: MariaDB 12.3
+-- FECHA: 10-09-2026
 -- DESCRIPCIÓN: Carga de datos iniciales, catálogos, tarifas y casos de prueba.
 -- =============================================================================
 
